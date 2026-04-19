@@ -4,6 +4,7 @@
 #include <chrono>
 #include <set>
 #include <queue>
+#include <string>
 
 using namespace std;
 int Distribution(int max);
@@ -16,11 +17,17 @@ private:
     vector<int> degrees;
     vector<vector<int>> adj;
 
+    vector<vector<int>> weightMatrix;
+
 public:
     graph(int t);
-
     void print();
-    
+
     void eccentricities();
+
+    void genWeightMatrix(int minWeight, int maxWeight);
+    void shimbel();
+
+    void findRoutes();
 };
 

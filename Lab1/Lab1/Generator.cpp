@@ -217,3 +217,106 @@ void graph::eccentricities()
     }
     cout << endl;
 }
+
+void graph::genWeightMatrix(int minWeight, int maxWeight)
+{
+    weightMatrix.assign(vertices, vector<int>(vertices, 0));
+
+    for (const auto& e : edges) {
+        int u = e.first;
+        int v = e.second;
+
+        int weight = Distribution(maxWeight);
+        if (weight < minWeight) weight = minWeight;
+        if (weight > maxWeight) weight = maxWeight;
+
+        weightMatrix[u][v] = weight;
+        weightMatrix[v][u] = weight;
+    }
+
+    cout << "Весовая матрица сгенерирована" << endl;
+}
+
+void graph::shimbel()
+{
+
+    vector<vector<int>> dist = weightMatrix;
+
+    const int INF = 1000000;
+    for (int i = 0; i < vertices; i++) {
+        for (int j = 0; j < vertices; j++) {
+            if (i != j && dist[i][j] == 0) {
+                dist[i][j] = INF;
+            }
+        }
+    }
+
+    for (int k = 0; k < vertices; k++) {
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (dist[i][k] != INF && dist[k][j] != INF) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+    }
+
+    cout << "Матрица кратчайших расстояний:" << endl;
+
+    cout << "    ";
+    for (int i = 0; i < vertices; i++) {
+        cout << i;
+    }
+    cout << endl;
+
+    cout << "    ";
+    for (int i = 0; i < vertices; i++) {
+        cout << "_____";
+    }
+    cout << endl;
+
+    for (int i = 0; i < vertices; i++) {
+        cout << i << " |";
+        for (int j = 0; j < vertices; j++) {
+            if (dist[i][j] == INF) {
+                cout << "INF";
+            }
+            else {
+                cout << dist[i][j];
+            }
+        }
+        cout << endl;
+    }
+}
+
+void graph::findRoutes()
+{
+    int start, end;
+    cout << "Введите начальную и конечную вершины: ";
+    cin >> start >> end;
+
+    if (start < 0 || start >= vertices || end < 0 || end >= vertices) {
+        cout << "Неверные вершины" << endl;
+        return;
+    }
+
+    vector<int> dist(vertices, -1);
+    queue<int> q;
+    dist[start] = 0;
+    q.push(start);
+
+    while (!q.empty()) {
+        int v = q.front(); q.pop();
+        for (int u : adj[v])
+            if (dist[u] == -1) { dist[u] = dist[v] + 1; q.push(u); }
+    }
+
+    if (dist[end] == -1) {
+        cout << "Маршрут НЕ СУЩЕСТВУЕТ" << endl;
+        return;
+    }
+
+    cout << "Кратчайший путь: " << dist[end] << endl;
+}

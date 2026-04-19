@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Generator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\Generator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Generator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\Generator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Lab1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\Lab1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Generator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EF04BC90-E200-4C47-AFB5-3FD0652BA543}|Lab1\\Lab1.vcxproj|solutionrelative:Lab1\\Generator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,44 +22,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Generator.h",
               "DocumentMoniker": "E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Generator.h",
               "RelativeDocumentMoniker": "Lab1\\Generator.h",
               "ToolTip": "E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Generator.h",
               "RelativeToolTip": "Lab1\\Generator.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-18T10:25:59.016Z"
+              "WhenOpened": "2026-03-18T10:25:59.016Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Generator.cpp",
               "DocumentMoniker": "E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Generator.cpp",
               "RelativeDocumentMoniker": "Lab1\\Generator.cpp",
               "ToolTip": "E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Generator.cpp",
               "RelativeToolTip": "Lab1\\Generator.cpp",
-              "ViewState": "AgIAACkAAAAAAAAAAAAgwKEAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUBAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-03-23T11:28:28.18Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Lab1.cpp",
               "DocumentMoniker": "E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Lab1.cpp",
               "RelativeDocumentMoniker": "Lab1\\Lab1.cpp",
               "ToolTip": "E:\\\u041F\u043E\u043B\u0438\u0442\u0435\u0445\\4 \u0441\u0435\u043C\\\u0422\u0435\u043E\u0440\u0438\u044F \u0433\u0440\u0430\u0444\u043E\u0432\\Lab1\\Lab1\\Lab1.cpp",
               "RelativeToolTip": "Lab1\\Lab1.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAA4AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-03-18T10:25:17.038Z"
+              "WhenOpened": "2026-03-18T10:25:17.038Z",
+              "EditorCaption": ""
             }
           ]
         }
