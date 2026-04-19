@@ -161,15 +161,9 @@ void graph::print()
 
 void graph::eccentricities()
 {
-    if (vertices == 0) {
-        cout << "Ãðàô ïóñò" << endl;
-        return;
-    }
-
-    cout << "\n=== ÝÊÑÖÅÍÒÐÈÑÈÒÅÒÛ ÂÅÐØÈÍ ===" << endl;
-
     vector<int> eccentricity(vertices, 0);
     int minEcc = vertices;
+    int maxEcc = 0;
 
     for (int i = 0; i < vertices; i++) {
         vector<int> dist(vertices, -1);
@@ -200,13 +194,24 @@ void graph::eccentricities()
         if (eccentricity[i] < minEcc) {
             minEcc = eccentricity[i];
         }
+        if (eccentricity[i] > maxEcc) {
+            maxEcc = eccentricity[i];
+        }
 
         cout << "Âåðøèíà " << i << ": ýêñöåíòðèñèòåò = " << eccentricity[i] << endl;
     }
-    
+
     cout << "Öåíòðû: ";
     for (int i = 0; i < vertices; i++) {
         if (eccentricity[i] == minEcc) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+
+    cout << "Äèàìåòðàëüíûå âåðøèíû: ";
+    for (int i = 0; i < vertices; i++) {
+        if (eccentricity[i] == maxEcc) {
             cout << i << " ";
         }
     }
