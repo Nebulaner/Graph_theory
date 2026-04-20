@@ -39,11 +39,12 @@ int Distribution(int max)
     return x;
 }
 
-graph::graph(int t)
+void graph::generateGraph(int n)
 {
-    vertices = t;
+    vertices = n;
     degrees.resize(vertices);
     adj.resize(vertices);
+    edges.clear();
 
     if (vertices == 1) {
         degrees[0] = 0;
@@ -76,7 +77,6 @@ graph::graph(int t)
     }
 
     vector<int> deg = degrees;
-    edges.clear();
     set<pair<int, int>> usedEdges;
 
     for (int step = 0; step < vertices - 1; step++) {
@@ -218,23 +218,67 @@ void graph::eccentricities()
     cout << endl;
 }
 
-void graph::genWeightMatrix(int minWeight, int maxWeight)
+void graph::genWeightMatrix(int numEdges)
 {
     weightMatrix.assign(vertices, vector<int>(vertices, 0));
 
-    for (const auto& e : edges) {
-        int u = e.first;
-        int v = e.second;
+    int edgesAdded = 0;
+    int maxPossibleEdges = vertices * (vertices - 1) / 2;
 
-        int weight = Distribution(maxWeight);
-        if (weight < minWeight) weight = minWeight;
-        if (weight > maxWeight) weight = maxWeight;
 
-        weightMatrix[u][v] = weight;
-        weightMatrix[v][u] = weight;
+    set<pair<int, int>> addedEdges;
+
+    while (edgesAdded < numEdges) {
+        int u = rand() % vertices;
+        int v = rand() % vertices;
+
+        if (u != v) {
+            pair<int, int> edge = { min(u, v), max(u, v) };
+            if (addedEdges.find(edge) == addedEdges.end()) {
+                int weight = Distribution(100);
+                if (weight < 1) weight = 1;
+
+                weightMatrix[u][v] = weight;
+                weightMatrix[v][u] = weight;
+                addedEdges.insert(edge);
+                edgesAdded++;
+            }
+        }
     }
 
-    cout << "Весовая матрица сгенерирована" << endl;
+    cout << "Весовая матрица сгенерирована (" << numEdges << " ребер)" << endl;
+}
+
+void graph::printWM()
+{
+    cout << "\n=== ВЕСОВАЯ МАТРИЦА ===" << endl;
+    cout << "    ";
+    for (int i = 0; i < vertices; i++) {
+        cout << i;
+    }
+    cout << endl;
+
+    cout << "    ";
+    for (int i = 0; i < vertices; i++) {
+        cout << "____";
+    }
+    cout << endl;
+
+    for (int i = 0; i < vertices; i++) {
+        cout << i << " |";
+        for (int j = 0; j < vertices; j++) {
+            if (weightMatrix[i][j] == 0 && i != j) {
+                cout << "0" << " ";
+            }
+            else if (i == j) {
+                cout << "0" << " ";
+            }
+            else {
+                cout << weightMatrix[i][j] << " ";
+            }
+        }
+        cout << endl;
+    }
 }
 
 void graph::shimbel()
@@ -284,7 +328,7 @@ void graph::shimbel()
                 cout << "INF";
             }
             else {
-                cout << dist[i][j];
+                cout << dist[i][j] << " ";
             }
         }
         cout << endl;

@@ -20,12 +20,14 @@ private:
     vector<vector<int>> weightMatrix;
 
 public:
-    graph(int t);
+    graph() {}
+    void generateGraph(int n);
     void print();
 
     void eccentricities();
 
-    void genWeightMatrix(int minWeight, int maxWeight);
+    void genWeightMatrix(int numEdges);
+    void printWM();
     void shimbel();
 
     void findRoutes();
