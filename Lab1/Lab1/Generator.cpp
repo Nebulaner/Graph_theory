@@ -42,8 +42,8 @@ int Distribution(int max)
 void graph::generateGraph(int n)
 {
     vertices = n;
-    degrees.resize(vertices);
-    adj.resize(vertices);
+    degrees.assign(vertices, 0);
+    adj.assign(vertices, vector<int>());
     edges.clear();
 
     if (vertices == 1) {
@@ -51,90 +51,65 @@ void graph::generateGraph(int n)
         return;
     }
 
-    for (int i = 0; i < vertices; i++) {
-        degrees[i] = Distribution(vertices - 1);
-        if (degrees[i] > vertices - 1) degrees[i] = vertices - 1;
-        if (degrees[i] < 1) degrees[i] = 1;
+    vector<int> existingVertices;
+    existingVertices.push_back(0);
+
+    for (int newVertex = 1; newVertex < vertices; newVertex++) {
+        int maxConnections = min((int)existingVertices.size(), vertices - 1);
+        int numConnections = Distribution(maxConnections);
+
+        if (numConnections < 1) numConnections = 1;
+        if (numConnections > maxConnections) numConnections = maxConnections;
+
+        set<int> selectedParents;
+
+        for (int conn = 0; conn < numConnections; conn++) {
+            int parentIndex;
+            int parent;
+            do {
+                parentIndex = rand() % existingVertices.size();
+                parent = existingVertices[parentIndex];
+            } while (selectedParents.find(parent) != selectedParents.end());
+
+            selectedParents.insert(parent);
+
+            edges.push_back({ parent, newVertex });
+
+            degrees[parent]++;
+            degrees[newVertex]++;
+        }
+
+        existingVertices.push_back(newVertex);
     }
 
     int sum = 0;
     for (int d : degrees) sum += d;
     int targetSum = 2 * (vertices - 1);
-    int diff = targetSum - sum;
 
-    if (diff > 0) {
-        for (int i = 0; i < diff; i++) {
-            degrees[i % vertices]++;
-            if (degrees[i % vertices] > vertices - 1)
-                degrees[i % vertices] = vertices - 1;
-        }
-    }
-    else if (diff < 0) {
-        for (int i = 0; i < -diff; i++) {
-            if (degrees[i % vertices] > 1)
-                degrees[i % vertices]--;
-        }
-    }
-
-    vector<int> deg = degrees;
-    set<pair<int, int>> usedEdges;
-
-    for (int step = 0; step < vertices - 1; step++) {
-        int leaf = -1;
-        for (int j = 0; j < vertices; j++) {
-            if (deg[j] == 1) {
-                leaf = j;
-                break;
-            }
-        }
-        if (leaf == -1) {
-            int minDeg = 1000;
-            for (int j = 0; j < vertices; j++) {
-                if (deg[j] > 0 && deg[j] < minDeg) {
-                    minDeg = deg[j];
-                    leaf = j;
+    if (sum != targetSum) {
+        int diff = targetSum - sum;
+        if (diff > 0) {
+            for (int i = 0; i < diff && i < vertices; i++) {
+                int u = rand() % vertices;
+                int v = rand() % vertices;
+                if (u != v) {
+                    edges.push_back({ u, v });
+                    degrees[u]++;
+                    degrees[v]++;
                 }
             }
         }
-
-        int parent = -1;
-        for (int j = 0; j < vertices; j++) {
-            if (deg[j] > 0 && j != leaf) {
-                parent = j;
-                break;
-            }
-        }
-
-        pair<int, int> newEdge = { min(leaf, parent), max(leaf, parent) };
-        if (usedEdges.find(newEdge) != usedEdges.end()) {
-            for (int j = 0; j < vertices; j++) {
-                if (deg[j] > 0 && j != leaf) {
-                    pair<int, int> testEdge = { min(leaf, j), max(leaf, j) };
-                    if (usedEdges.find(testEdge) == usedEdges.end()) {
-                        parent = j;
-                        newEdge = testEdge;
-                        break;
-                    }
-                }
-            }
-        }
-
-        usedEdges.insert(newEdge);
-        edges.push_back({ leaf, parent });
-
-        deg[leaf]--;
-        deg[parent]--;
     }
 
     for (const auto& e : edges) {
         adj[e.first].push_back(e.second);
         adj[e.second].push_back(e.first);
     }
+
     for (int i = 0; i < vertices; i++) {
         sort(adj[i].begin(), adj[i].end());
     }
 }
-
 void graph::print()
 {
     cout << "\n=== ИНФОРМАЦИЯ О ГРАФЕ ===" << endl;
@@ -164,6 +139,8 @@ void graph::eccentricities()
     vector<int> eccentricity(vertices, 0);
     int minEcc = vertices;
     int maxEcc = 0;
+
+    cout << "Эксцентрисететы" << endl;
 
     for (int i = 0; i < vertices; i++) {
         vector<int> dist(vertices, -1);
@@ -198,7 +175,7 @@ void graph::eccentricities()
             maxEcc = eccentricity[i];
         }
 
-        cout << "Вершина " << i << ": эксцентриситет = " << eccentricity[i] << endl;
+        cout << "Вершина " << i << eccentricity[i] << endl;
     }
 
     cout << "Центры: ";
@@ -226,27 +203,17 @@ void matrix::genWeightMatrix(int numEdges)
 {
     int weightType;
     cout << "\nВыберите тип весов:" << endl;
-    cout << "1. Только положительные значения" << endl;
-    cout << "2. Только отрицательные значения" << endl;
-    cout << "3. Смешанные (положительные и отрицательные)" << endl;
+    cout << "1. Только положительные" << endl;
+    cout << "2. Только отрицательные" << endl;
+    cout << "3. Смешанные" << endl;
     cout << "Ваш выбор: ";
     cin >> weightType;
 
-    while (vertices * (vertices - 1) / 2 < numEdges) {
-        vertices++;
-    }
+    while (vertices * (vertices - 1) / 2 < numEdges) vertices++;
 
     weightMatrix.assign(vertices, vector<int>(vertices, 0));
-
-    int edgesAdded = 0;
-    int maxPossibleEdges = vertices * (vertices - 1) / 2;
-
-    if (numEdges > maxPossibleEdges) {
-        cout << "Предупреждение: максимальное количество ребер = " << maxPossibleEdges << endl;
-        numEdges = maxPossibleEdges;
-    }
-
     set<pair<int, int>> addedEdges;
+    int edgesAdded = 0;
 
     while (edgesAdded < numEdges) {
         int u = rand() % vertices;
@@ -258,6 +225,12 @@ void matrix::genWeightMatrix(int numEdges)
                 int weight = Distribution(100);
                 if (weight < 1) weight = 1;
 
+                if (weightType == 2) {
+                    weight = -weight;
+                }
+                else if (weightType == 3 && rand() % 2 == 1) {
+                    weight = -weight; 
+                }
                 weightMatrix[u][v] = weight;
                 weightMatrix[v][u] = weight;
                 addedEdges.insert(edge);
