@@ -218,13 +218,33 @@ void graph::eccentricities()
     cout << endl;
 }
 
-void graph::genWeightMatrix(int numEdges)
+
+
+// MATRIX
+
+void matrix::genWeightMatrix(int numEdges)
 {
+    int weightType;
+    cout << "\nВыберите тип весов:" << endl;
+    cout << "1. Только положительные значения" << endl;
+    cout << "2. Только отрицательные значения" << endl;
+    cout << "3. Смешанные (положительные и отрицательные)" << endl;
+    cout << "Ваш выбор: ";
+    cin >> weightType;
+
+    while (vertices * (vertices - 1) / 2 < numEdges) {
+        vertices++;
+    }
+
     weightMatrix.assign(vertices, vector<int>(vertices, 0));
 
     int edgesAdded = 0;
     int maxPossibleEdges = vertices * (vertices - 1) / 2;
 
+    if (numEdges > maxPossibleEdges) {
+        cout << "Предупреждение: максимальное количество ребер = " << maxPossibleEdges << endl;
+        numEdges = maxPossibleEdges;
+    }
 
     set<pair<int, int>> addedEdges;
 
@@ -246,24 +266,12 @@ void graph::genWeightMatrix(int numEdges)
         }
     }
 
-    cout << "Весовая матрица сгенерирована (" << numEdges << " ребер)" << endl;
+    cout << "Весовая матрица сгенерирована (" << numEdges << " ребер, " << vertices << " вершин)" << endl;
 }
 
-void graph::printWM()
+void matrix::printWM()
 {
     cout << "\n=== ВЕСОВАЯ МАТРИЦА ===" << endl;
-    cout << "    ";
-    for (int i = 0; i < vertices; i++) {
-        cout << i;
-    }
-    cout << endl;
-
-    cout << "    ";
-    for (int i = 0; i < vertices; i++) {
-        cout << "____";
-    }
-    cout << endl;
-
     for (int i = 0; i < vertices; i++) {
         cout << i << " |";
         for (int j = 0; j < vertices; j++) {
@@ -281,9 +289,8 @@ void graph::printWM()
     }
 }
 
-void graph::shimbel()
+void matrix::shimbel()
 {
-
     vector<vector<int>> dist = weightMatrix;
 
     const int INF = 1000000;
@@ -335,32 +342,62 @@ void graph::shimbel()
     }
 }
 
-void graph::findRoutes()
+void matrix::findRoutes(int start, int end)
 {
-    int start, end;
-    cout << "Введите начальную и конечную вершины: ";
-    cin >> start >> end;
-
-    if (start < 0 || start >= vertices || end < 0 || end >= vertices) {
-        cout << "Неверные вершины" << endl;
+    if (weightMatrix.empty()) {
+        cout << "Весовая матрица не сгенерирована! Используйте genWeightMatrix()" << endl;
         return;
     }
 
-    vector<int> dist(vertices, -1);
-    queue<int> q;
-    dist[start] = 0;
-    q.push(start);
+    const int INF = 1000000;
+    vector<int> dist(vertices, INF);
+    vector<int> parent(vertices, -1);
+    vector<bool> visited(vertices, false);
 
-    while (!q.empty()) {
-        int v = q.front(); q.pop();
-        for (int u : adj[v])
-            if (dist[u] == -1) { dist[u] = dist[v] + 1; q.push(u); }
+    dist[start] = 0;
+
+    for (int i = 0; i < vertices; i++) {
+        int u = -1;
+        int minDist = INF;
+        for (int j = 0; j < vertices; j++) {
+            if (!visited[j] && dist[j] < minDist) {
+                minDist = dist[j];
+                u = j;
+            }
+        }
+
+        if (u == -1) break;
+        visited[u] = true;
+
+        for (int v = 0; v < vertices; v++) {
+            if (weightMatrix[u][v] > 0 && !visited[v]) {
+                int newDist = dist[u] + weightMatrix[u][v];
+                if (newDist < dist[v]) {
+                    dist[v] = newDist;
+                    parent[v] = u;
+                }
+            }
+        }
     }
 
-    if (dist[end] == -1) {
+    if (dist[end] == INF) {
         cout << "Маршрут НЕ СУЩЕСТВУЕТ" << endl;
         return;
     }
 
     cout << "Кратчайший путь: " << dist[end] << endl;
+
+    vector<int> path;
+    int current = end;
+    while (current != -1) {
+        path.push_back(current);
+        current = parent[current];
+    }
+
+    cout << "Путь: ";
+    for (int i = path.size() - 1; i >= 0; i--) {
+        cout << path[i];
+        if (i > 0) cout << " -> ";
+    }
+    cout << endl;
 }

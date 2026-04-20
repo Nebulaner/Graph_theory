@@ -10,6 +10,7 @@ int main()
     setlocale(LC_ALL, "rus");
 
     graph g;
+    matrix w;
 
     int choice;
     do {
@@ -44,17 +45,21 @@ int main()
             int count;
             cout << "Введите количество ребер: ";
             cin >> count;
-            g.genWeightMatrix(count);
-            g.printWM();
+            w.genWeightMatrix(count);
+            w.printWM();
             break;
         }
 
         case 5:
-            g.shimbel();
+            w.shimbel();
             break;
 
         case 6:
-            g.findRoutes();
+            int start, end;
+            cout << "Введите начальную и конечную вершины через пробел: ";
+            cin >> start >> end;
+
+            w.findRoutes(start, end);
             break;
         default:
             cout << "Неверный выбор! Попробуйте снова." << endl;

@@ -1,3 +1,4 @@
 ﻿  Generator.cpp
-E:\Политех\4 сем\Теория графов\Lab1\Lab1\Generator.cpp(7,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  Lab1.vcxproj -> E:\Политех\4 сем\Теория графов\Lab1\x64\Debug\Lab1.exe
+D:\Политех\4 семестр\Теория графов\Lab1\Lab1\Generator.cpp(7,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\Политех\4 семестр\Теория графов\Lab1\Lab1\Generator.cpp(398,16): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Lab1.vcxproj -> D:\Политех\4 семестр\Теория графов\Lab1\x64\Debug\Lab1.exe

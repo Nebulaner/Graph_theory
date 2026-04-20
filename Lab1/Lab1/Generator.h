@@ -17,19 +17,22 @@ private:
     vector<int> degrees;
     vector<vector<int>> adj;
 
+public:
+    void generateGraph(int n);
+    void print();
+    void eccentricities();
+};
+
+class matrix
+{
+private:
+    int vertices;
     vector<vector<int>> weightMatrix;
 
 public:
-    graph() {}
-    void generateGraph(int n);
-    void print();
-
-    void eccentricities();
-
     void genWeightMatrix(int numEdges);
     void printWM();
     void shimbel();
 
-    void findRoutes();
+    void findRoutes(int start, int end);
 };
-
